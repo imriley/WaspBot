@@ -1,3 +1,15 @@
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+const Emojify = new SlashCommandBuilder()
+  .setName("emojify")
+  .setDescription("Emojifies your messages")
+  .addStringOption((option) => {
+    option
+      .setName("message")
+      .setDescription("Your message to emojify")
+      .setRequired(true);
+  });
+/*
 const Emojify = {
   name: "emojify",
   description: "Emojifies your message",
@@ -10,5 +22,6 @@ const Emojify = {
     }
   ]
 }
+*/
 
-export default Emojify;
+export default Emojify.toJSON();

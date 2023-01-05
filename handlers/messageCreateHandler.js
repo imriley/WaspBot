@@ -51,7 +51,7 @@ export default async function messageCreateHandler(message) {
     console.log(`\nTEMP= ${temp}`);
     try {
       eval(temp);
-      await message.react("✅");
+      await message.react("<a:check:1054376181673234492>");
     } catch (error) {
       result = error;
       await message.react("❌");
