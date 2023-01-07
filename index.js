@@ -1,12 +1,9 @@
-// ============IMPORTS==============
-// discord imports
-import { Client, GatewayIntentBits, Partials } from "discord.js";
-// For Environment variables
-import dotenv from "dotenv";
+import { Client, GatewayIntentBits, Partials, Collection } from "discord.js";
+import loadEvents from "./handlers/eventHandler.js";
+import dotenv from "dotenv"; // For Environment variables
 dotenv.config();
 // Handlers import
 import messageCreateHandler from "./handlers/messageCreateHandler.js";
-import interactionCreateHandler from "./handlers/interactionCreateHandler.js";
 
 // making new client
 const client = new Client({
@@ -33,16 +30,12 @@ const client = new Client({
 //setting up env variables
 const TOKEN = process.env["TOKEN"];
 
-// Confirmation on ready event
-client.on("ready", () => {
-  console.log(`😈 ${client.user.tag} is in 🤓!`);
-});
+client.events = new Collection();
+client.commands = new Collection();
+loadEvents(client);
 
 // Messages handler for normal messages
 client.on("messageCreate", messageCreateHandler);
-
-// Slash commands handler
-client.on("interactionCreate", interactionCreateHandler);
 
 // Turning it on
 client.login(TOKEN);

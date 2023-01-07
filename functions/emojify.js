@@ -155,10 +155,7 @@ export default function emojify(msg) {
     "warning",
   ];
   return msg.replace(
-      /\s/g,
-      () =>
-        " :" +
-        emojis[Math.floor(emojis.length * Math.random())] +
-        ": "
-    );
+    /\s/g,
+    () => " :" + emojis[Math.floor(emojis.length * Math.random())] + ": "
+  );
 }
