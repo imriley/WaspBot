@@ -25,7 +25,7 @@ export default {
    */
   async execute(interaction, client) {
     let msg = interaction.options.get("message").value;
-    let onlyme = interaction.options.get("onlyme").value; // Boolean value
+    let onlyme = interaction.options.get("onlyme")?.value; // Boolean value
     await interaction.reply({ content: emojify(msg), ephemeral: onlyme });
   },
 };

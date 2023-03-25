@@ -1,10 +1,9 @@
 // discord imports
 import { Client, GatewayIntentBits, Routes } from "discord.js";
 import { REST } from "@discordjs/rest";
-// Commands import
-import Ping from "./commands/ping.js";
-import Emojify from "./commands/emojify.js";
-import RPS from "./commands/stonePaperScissor.js";
+import dotenv from "dotenv"; // For Environment variables
+
+dotenv.config();
 
 // setting up env variables
 const TOKEN = process.env["TOKEN"];
@@ -15,33 +14,33 @@ const GUILD_ID = process.env["GUILD_ID_WaspbotDev"];
 const rest = new REST({ version: "10" }).setToken(TOKEN);
 
 export default async function main() {
-  const commands = [Ping, Emojify, RPS];
+  // const commands = [Ping, Emojify, RPS];
 
-  const globalCommands = [Emojify];
+  // const globalCommands = [Emojify];
 
   try {
-    console.log("Started refreshing application (/) commands.");
-    // For Dev server Deployment
-    await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
-      body: commands,
-    });
+    // console.log("Started refreshing application (/) commands.");
+    // // For Dev server Deployment
+    // await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+    //   body: commands,
+    // });
 
-    // For global Deployment
-    await rest.put(Routes.applicationCommands(CLIENT_ID), {
-      body: globalCommands,
-    });
-    console.log("Registered Commands Successfully");
+    // // For global Deployment
+    // await rest.put(Routes.applicationCommands(CLIENT_ID), {
+    //   body: globalCommands,
+    // });
+    // console.log("Registered Commands Successfully");
 
     // For removing all global Commands
-    /* rest.get(Routes.applicationCommands(CLIENT_ID))
-       .then(data => {
-         const promises = [];
-         for (const command of data) {
-             const deleteUrl = `${Routes.applicationCommands(CLIENT_ID)}/${command.id}`;
-             promises.push(rest.delete(deleteUrl));
-         }
-     })
-    */
+    rest.get(Routes.applicationCommands(CLIENT_ID)).then((data) => {
+      const promises = [];
+      for (const command of data) {
+        const deleteUrl = `${Routes.applicationCommands(CLIENT_ID)}/${
+          command.id
+        }`;
+        promises.push(rest.delete(deleteUrl));
+      }
+    });
   } catch (err) {
     console.log(err);
   }

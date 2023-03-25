@@ -6,7 +6,10 @@ import {
 } from "discord.js";
 
 import loadEvents from "../../handlers/eventHandler.js";
-import loadCommands from "../../handlers/slashCommandHandler.js";
+import {
+  loadPublicCommands,
+  loadDevCommands,
+} from "../../handlers/slashCommandHandler.js";
 
 export default {
   developer: true,
@@ -38,7 +41,7 @@ export default {
         break;
       case "commands":
         {
-          loadCommands(client);
+          loadPublicCommands(client);
           interaction.reply({ content: "Reloaded Commands", ephemeral: true });
         }
         break;

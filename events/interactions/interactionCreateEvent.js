@@ -19,7 +19,9 @@ export default {
     if (!interaction.isChatInputCommand()) return;
     console.log("🕹️  Chat Input");
 
-    const command = client.commands.get(interaction.commandName);
+    const command =
+      client.publicCommands.get(interaction.commandName) ||
+      client.devCommands.get(interaction.commandName);
     if (!command)
       return interaction.reply({
         content: "This is outdated",

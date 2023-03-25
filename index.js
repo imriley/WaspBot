@@ -31,7 +31,8 @@ const client = new Client({
 const TOKEN = process.env["TOKEN"];
 
 client.events = new Collection();
-client.commands = new Collection();
+client.publicCommands = new Collection();
+client.devCommands = new Collection();
 loadEvents(client);
 
 // Messages handler for normal messages
