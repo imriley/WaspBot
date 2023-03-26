@@ -33,9 +33,10 @@ const TOKEN = process.env["TOKEN"];
 client.events = new Collection();
 client.publicCommands = new Collection();
 client.devCommands = new Collection();
+client.uptimeTrackerTimestamp = new Date();
 loadEvents(client);
 
-// Messages handler for normal messages
+// TODO: Better Messages handler for normal messages
 client.on("messageCreate", messageCreateHandler);
 
 // Turning it on
