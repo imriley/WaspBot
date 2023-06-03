@@ -12,7 +12,6 @@ import {
 } from "../../handlers/slashCommandHandler.js";
 
 export default {
-  developer: true,
   data: new SlashCommandBuilder()
     .setName("reload")
     .setDescription("Reloads commands or events")

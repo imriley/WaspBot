@@ -1,4 +1,4 @@
-import hello from "./messageHandlers/hello.js";
+import chalk from "chalk";
 
 // For Environment variables
 import dotenv from "dotenv";
@@ -13,13 +13,25 @@ const SuperUsers = [
   process.env["SU_Rockstar"],
 ];
 
+function hello() {
+  const greetings = ["Hi Super! 😎", "Hi Super User! 🤙", "Greetings 🤓"];
+  return greetings[Math.floor(Math.random() * greetings.length)];
+}
+
 let result = "";
 function print(String) {
-  result += String;
+  if (result.length < 1900) result += String;
 }
 
 export default async function messageCreateHandler(message) {
-  console.log("🗨️  Message Create");
+  let msgIn = message.guild
+    ? chalk.black.bgGreen(message.guild?.nameAcronym)
+    : chalk.black.bgWhite("Dm");
+  console.log(
+    `🗨️ ${chalk.bgRed(message.author.username)} in ${msgIn} has ${chalk.gray(
+      message.content
+    )}`
+  );
 
   // for later use
   const [client, guild] = [message.client, message.guild];
@@ -39,22 +51,21 @@ export default async function messageCreateHandler(message) {
   // TODO: better regex?
   // const [, command, args] = msg.match(/^(\w+)\s(.+)/) || [];
 
-  // logging stuff
-  console.log(`Command: ${command};\n=====\nArgument: \t\n${args};`);
+  // logging command
+  // console.log(`${chalk.blue(command)} ${args}`);
 
   if (command === "hello") {
     await message.channel.send(hello());
   }
 
   if (command == "eval") {
-    let temp = args?.replace(/```js|```/g, "");
-    console.log(`\nTEMP= ${temp}`);
+    let codeString = args?.replace(/```js|```/g, "");
     try {
-      eval(temp);
+      eval(codeString);
       await message.react("<a:check:1054376181673234492>");
     } catch (error) {
       result = error;
-      await message.react("❌");
+      await message.react("<a:cross:1060641653121093803>");
     }
     if (result) {
       await message.channel.send("```\n" + result + "\n```");

@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   Client,
 } from "discord.js";
-import dateDiff from "../../functions/dateDifference";
+import dateDiff from "../../functions/dateDifference.js";
 
 export default {
   data: new SlashCommandBuilder()
