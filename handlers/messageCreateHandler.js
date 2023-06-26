@@ -11,6 +11,7 @@ const SuperUsers = [
   process.env["SU_Shazam"],
   process.env["SU_Kuro"],
   process.env["SU_Rockstar"],
+  process.env["SU_Riley"],
 ];
 
 function hello() {
