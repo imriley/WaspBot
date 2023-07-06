@@ -25,7 +25,7 @@ function print(String) {
 }
 
 export default async function messageCreateHandler(message) {
-  let msgIn = message.guild
+  const msgIn = message.guild
     ? chalk.black.bgGreen(message.guild?.nameAcronym)
     : chalk.black.bgWhite("Dm");
   console.log(
@@ -35,7 +35,11 @@ export default async function messageCreateHandler(message) {
   );
 
   // for later use
-  const [client, guild] = [message.client, message.guild];
+  const [client, guild, channel] = [
+    message.client,
+    message.guild,
+    message.channel,
+  ];
 
   if (
     !message.content.startsWith(prefix) ||
@@ -60,14 +64,19 @@ export default async function messageCreateHandler(message) {
   }
 
   if (command == "eval") {
-    let codeString = args?.replace(/```js|```/g, "");
+    const codeString = args?.replace(/```js|```/g, "");
     try {
-      eval(codeString);
+      const asyncFunction = new Function(
+        "client, guild, channel, message, print, msg",
+        `return (async () => { ${codeString} })()`
+      );
+      await asyncFunction(client, guild, channel, message, print, msg);
       await message.react("<a:check:1054376181673234492>");
     } catch (error) {
       result = error;
       await message.react("<a:cross:1060641653121093803>");
     }
+
     if (result) {
       await message.channel.send("```\n" + result + "\n```");
     }
