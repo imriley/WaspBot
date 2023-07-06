@@ -9,7 +9,10 @@ export default {
     .setName("skipto")
     .setDescription("Skips to the song")
     .addIntegerOption((option) =>
-      option.setName("num").setDescription("Song number to skip to")
+      option
+        .setName("num")
+        .setDescription("Song number to skip to")
+        .setRequired(true)
     ),
   /**
    *

@@ -10,7 +10,7 @@ export default {
     .setName("purge")
     .setDescription("Purge messages")
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
-    .addStringOption((option) =>
+    .addIntegerOption((option) =>
       option
         .setName("amount")
         .setDescription("Amount of messages to delete")
@@ -24,7 +24,9 @@ export default {
   async execute(interaction, client) {
     const amt = interaction.options.get("amount").value;
 
-    const messages = await interaction.channel.messages.fetch({ limit: amt });
+    const messages = await interaction.channel.messages.fetch({
+      limit: amt,
+    });
     try {
       messages.forEach(async (m) => await m.delete());
     } catch (error) {
