@@ -35,7 +35,7 @@ export default {
    * @param {Client} client
    */
   async execute(interaction, client) {
-    let choice = interaction.options.get("choice").value; //will receive int from {0,1,2}
+    const choice = interaction.options.get("choice").value; //will receive int from {0,1,2}
     await interaction.reply({ embeds: [stonePaperScissors(choice)] });
   },
 };

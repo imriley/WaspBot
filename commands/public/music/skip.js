@@ -21,11 +21,17 @@ export default {
     const amount = interaction.options.get("amount")?.value;
     if (!queue) return await interaction.reply("No song in queue");
     try {
-      const song = await queue.skip();
-      return await interaction.reply(`Skipped! Now playing:\n${song.name}`);
+      if (amount) {
+        const song = await client.distube.jump(interaction, amount);
+        return await interaction.reply(
+          `Skipped ${amount} songs! Now playing:\n${song.name}`
+        );
+      } else {
+        const song = await queue.skip();
+        return await interaction.reply(`Skipped! Now playing:\n${song.name}`);
+      }
     } catch (e) {
       return await interaction.reply(`${e}`);
     }
-    // TODO: skip multiple songs with amount
   },
 };

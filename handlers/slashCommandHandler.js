@@ -17,7 +17,7 @@ async function loadPublicCommands(client) {
   // clear all commands first
   await client.publicCommands.clear();
 
-  let publicCommandsArray = [];
+  const publicCommandsArray = [];
   // Load all the files from commands/public folder
   const publicCommandFiles = await loadFiles("commands/public");
 
@@ -47,7 +47,7 @@ async function loadDevCommands(client) {
   // clear all commands first
   await client.devCommands.clear();
 
-  let devCommandsArray = [];
+  const devCommandsArray = [];
   // Load all the files from commands/devloper folder
   const devCommandFiles = await loadFiles("commands/devloper");
 
